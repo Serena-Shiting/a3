@@ -1,0 +1,149 @@
+Script started on 2021-10-25 03:27:03+00:00 [TERM="xterm-256color" TTY="/dev/pts/7" COLUMNS="153" LINES="24"]
+
+(1)find the median of normalized helpfulness scores for the 100 produces
+]0;lis@f6linux11: ~lis@f6linux11:~$ cd a3/PRODUCTS/
+]0;lis@f6linux11: ~/a3/PRODUCTSlis@f6linux11:~/a3/PRODUCTS$ for i in `ls ??????????.txt`; do echo "$i `sort -n -k 2 $i | awk '{ a[i++] = $2 } END { print a[int(i/2)]; }'`" ; done > median.txt
+
+(2)convert the helpfulness column in each file to binary 0 or 1 values(for 100 produces)
+]0;lis@f6linux11: ~/a3/PRODUCTSlis@f6linux11:~/a3/PRODUCTS$ for i in `ls ??????????.txt`; do median=`sort -n -k 2 $i | awk '{ a[i++] = $2 } END { print a[int(i/2)];}'`;  awk -v median=$median '$2 < median {print $1,0} $2 >= median {print $1,1}' $i > $i.BINARY.txt; done
+
+(4)Recompute the correlation scores(for 100 produces)
+]0;lis@f6linux11: ~/a3/PRODUCTSlis@f6linux11:~/a3/PRODUCTS$ for i in `ls *.BINARY.txt` ; do ~/datamash-1.3/datamash -W ppearson 1:2 < $i > $i.corrnorm.txt;done
+
+
+(1)find the median of normalized helpfulness scores for the 100 customers
+]0;lis@f6linux11: ~/a3/PRODUCTSlis@f6linux11:~/a3/PRODUCTS$ cd a3/C[K[K[K[K~/a2[K3/CUSTOMERS/
+]0;lis@f6linux11: ~/a3/CUSTOMERSlis@f6linux11:~/a3/CUSTOMERS$ for i in `ls ????????.txt`; do echo "$i `sort -n -k 2 $i | awk '{ a[i++] = $2 } END { print a[int(i/2)]; }'`" ; done > median.txt
+
+(2)convert the helpfulness column in each file to binary 0 or 1 values(for 100 customers)
+]0;lis@f6linux11: ~/a3/CUSTOMERSlis@f6linux11:~/a3/CUSTOMERS$ for i in `ls ????????.txt`; do median=`sort -n -k 2 $i | awk '{ a[i++] = $2 } END { print a[int(i/2)];}'`;  awk '{ if ($median < $2) print $1,0; else print $1,1}' $i > $i.BINARY.txt; done
+
+]0;lis@f6linux11: ~/a3/CUSTOMERSlis@f6linux11:~/a3/CUSTOMERS$ 
+
+(4)Recompute the correlation scores(for 100 customers)
+]0;lis@f6linux11: ~/a3/CUSTOMERSlis@f6linux11:~/a3/CUSTOMERS$ for i in `ls *.BINARY.txt` ; do ~/datamash-1.3/datamash -W ppearson 1:2 < $i > $i.corrnorm.txt;done
+]
+
+(3)Each result should be placed in a new file 
+^[]0;lis@f6linux11: ~/a3/CUSTOMERS^G^[[01;32mlis@f6linux11^[[00m:^[[01;34m~/a3/CUSTOMERS^[[00m$ ls^M
+20595117.txt             46983871.txt             50389232.txt             51142763.txt             52223435.txt             52845727.txt^M
+20595117.txt.BINARY.txt  46983871.txt.BINARY.txt  50389232.txt.BINARY.txt  51142763.txt.BINARY.txt  52223435.txt.BINARY.txt  52845727.txt.BINARY.txt^M
+30559999.txt             49042814.txt             50592435.txt             51145127.txt             52254603.txt             52894384.txt^M
+30559999.txt.BINARY.txt  49042814.txt.BINARY.txt  50592435.txt.BINARY.txt  51145127.txt.BINARY.txt  52254603.txt.BINARY.txt  52894384.txt.BINARY.txt^M
+35004134.txt             49115690.txt             50608834.txt             51147790.txt             52266433.txt             52938698.txt^M
+35004134.txt.BINARY.txt  49115690.txt.BINARY.txt  50608834.txt.BINARY.txt  51147790.txt.BINARY.txt  52266433.txt.BINARY.txt  52938698.txt.BINARY.txt^M
+35985708.txt             49148452.txt             50652563.txt             51199159.txt             52447634.txt             52947077.txt^M
+35985708.txt.BINARY.txt  49148452.txt.BINARY.txt  50652563.txt.BINARY.txt  51199159.txt.BINARY.txt  52447634.txt.BINARY.txt  52947077.txt.BINARY.txt^M
+36642996.txt             49202417.txt             50702879.txt             51210331.txt             52476938.txt             52966385.txt^M
+36642996.txt.BINARY.txt  49202417.txt.BINARY.txt  50702879.txt.BINARY.txt  51210331.txt.BINARY.txt  52476938.txt.BINARY.txt  52966385.txt.BINARY.txt^M
+38491967.txt             49273674.txt             50732546.txt             51243012.txt             52496677.txt             53008075.txt^M
+38491967.txt.BINARY.txt  49273674.txt.BINARY.txt  50732546.txt.BINARY.txt  51243012.txt.BINARY.txt  52496677.txt.BINARY.txt  53008075.txt.BINARY.txt^M
+38672733.txt             49355567.txt             50736950.txt             51247650.txt             52500542.txt             53009736.txt^M
+38672733.txt.BINARY.txt  49355567.txt.BINARY.txt  50736950.txt.BINARY.txt  51247650.txt.BINARY.txt  52500542.txt.BINARY.txt  53009736.txt.BINARY.txt^M
+39134375.txt             49447323.txt             50761804.txt             51325095.txt             52517734.txt             53016962.txt^M
+39134375.txt.BINARY.txt  49447323.txt.BINARY.txt  50761804.txt.BINARY.txt  51325095.txt.BINARY.txt  52517734.txt.BINARY.txt  53016962.txt.BINARY.txt^M
+39569598.txt             49693975.txt             50774468.txt             51379338.txt             52564468.txt             53037408.txt^M
+39569598.txt.BINARY.txt  49693975.txt.BINARY.txt  50774468.txt.BINARY.txt  51379338.txt.BINARY.txt  52564468.txt.BINARY.txt  53037408.txt.BINARY.txt^M
+41012519.txt             49750558.txt             50776149.txt             51809405.txt             52615377.txt             53047425.txt^M
+41012519.txt.BINARY.txt  49750558.txt.BINARY.txt  50776149.txt.BINARY.txt  51809405.txt.BINARY.txt  52615377.txt.BINARY.txt  53047425.txt.BINARY.txt^M
+42800127.txt             49786731.txt             50881246.txt             51915884.txt             52697458.txt             53052943.txt^M
+42800127.txt.BINARY.txt  49786731.txt.BINARY.txt  50881246.txt.BINARY.txt  51915884.txt.BINARY.txt  52697458.txt.BINARY.txt  53052943.txt.BINARY.txt^M
+43546353.txt             49992211.txt             50895620.txt             51917998.txt             52706646.txt             53071109.txt^M
+43546353.txt.BINARY.txt  49992211.txt.BINARY.txt  50895620.txt.BINARY.txt  51917998.txt.BINARY.txt  52706646.txt.BINARY.txt  53071109.txt.BINARY.txt^M
+45041039.txt             50057481.txt             50913245.txt             51934027.txt             52753467.txt             53072811.txt^M
+45041039.txt.BINARY.txt  50057481.txt.BINARY.txt  50913245.txt.BINARY.txt  51934027.txt.BINARY.txt  52753467.txt.BINARY.txt  53072811.txt.BINARY.txt^M
+45193257.txt             50068216.txt             50941451.txt             51987970.txt             52774618.txt             53082946.txt^M
+45193257.txt.BINARY.txt  50068216.txt.BINARY.txt  50941451.txt.BINARY.txt  51987970.txt.BINARY.txt  52774618.txt.BINARY.txt  53082946.txt.BINARY.txt^M
+45273033.txt             50122160.txt             51010391.txt             52008531.txt             52793250.txt             53084107.txt^M
+45273033.txt.BINARY.txt  50122160.txt.BINARY.txt  51010391.txt.BINARY.txt  52008531.txt.BINARY.txt  52793250.txt.BINARY.txt  53084107.txt.BINARY.txt^M
+45284807.txt             50199793.txt             51065232.txt             52012289.txt             52797744.txt             FILE.normalize.txt^M
+45284807.txt.BINARY.txt  50199793.txt.BINARY.txt  51065232.txt.BINARY.txt  52012289.txt.BINARY.txt  52797744.txt.BINARY.txt  mean.txt^M
+46134316.txt             50378566.txt             51110953.txt             52173832.txt             52830980.txt             median.txt^M
+46134316.txt.BINARY.txt  50378566.txt.BINARY.txt  51110953.txt.BINARY.txt  52173832.txt.BINARY.txt  52830980.txt.BINARY.txt  tem^M
+
+
+0;lis@f6linux11: ~/a3/CUSTOMERSlis@f6linux11:~/a3/CUSTOMERS$ cd[K[Kcd ~/P[Ka3/PRODUCTS/
+]0;lis@f6linux11: ~/a3/PRODUCTSlis@f6linux11:~/a3/PRODUCTS$ head -n 10 0060392452.txt.BINARY.txt 0060392452.txt
+==> 0060392452.txt.BINARY.txt <==
+1 1
+2 1
+5 1
+4 1
+4 0
+4 0
+1 1
+5 0
+1 1
+1 1
+
+==> 0060392452.txt <==
+1 18
+2 11
+5 13
+4 9
+4 2
+4 5
+1 17
+5 3
+1 16
+1 22^M
+
+(7) Do you think the correlation scores are more meaningful now than before in a2? Explain in a few sentences what you think.
+	I think the current correlation scores are more meaningful than the previous one because the correlation coefficient measures the strength of the relationship between two variables. when helpfulness is only 0 and 1, we can more intuitively observe whether different levels of review scores are useful.
+
+(8),(9)
+]0;lis@f6linux11: ~/a3/PRODUCTSlis@f6linux11:~/a3/PRODUCTS$ cd ..
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ grep "0060392452" ../amazon_reviews_us_Books_v1_02.tsv | awk -F"\t" -v OFS='\t' '{print $9,$14}' > review_bady
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ sed -i 's/ the / /g' review_bady
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ sed -i 's/ and / /g' review_bady
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ sed -i 's/ was / /g' review_bady
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ sed -i 's/ she / /g' review_bady
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ sed -i 's/ for / /g' review_bady
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ sed -i 's/ you / /g' review_bady
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ sed -i 's/ this / /g' review_bady
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ sed -i 's/ her / /g' review_bady
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ sed -i 's/ will / /g' review_bady
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ sed -i 's/ they / /g' review_bady
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ sed -i 's/ that / /g' review_bady
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ sed -i 's/ but / /g' review_bady
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ sed -i 's/ about / /g' review_bady
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ sed -i 's/<...\/>//g' review_bady
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ sed -i 's/<...>//g' review_bady
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ sed -i 's/ [a-zA-Z0-9]\{1,2\} / /g' review_bady
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ sed -i 's/[,\.:"\(\)]/ /g' review_bady
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ sort -n -k 1 review_bady > sorted
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ head -n 490 sorted>review_bady_0
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ tail -n 489 sorted>review_bady_1
+
+
+(10)the 10 words appear most frequently in the helpfulness=1 category is show in the review_1 file;
+    and the 10 words appear most frequently in the helpfulness=0 category is show in the review_0 file
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ tr " " "\n" < review_bady_0 | sort | uniq -c| sort -n -r |less > review_0
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ tr " " "\n" < review_bady_1 | sort | uniq -c| sort -n -r |less > review_1
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ head -n 10 review_0 review_1
+==> review_0 <==
+  11366 
+    974 book
+    653 Moore
+    549 his
+    461 a
+    454 with
+    428 are
+    395 not
+    304 have
+    301 read
+
+==> review_1 <==
+  13770 
+   1023 book
+    812 Moore
+    627 his
+    566 are
+    553 a
+    515 with
+    450 not
+    421 have
+    335 all
+]0;lis@f6linux11: ~/a3lis@f6linux11:~/a3$ exit
+
+Script done on 2021-10-25 03:32:37+00:00 [COMMAND_EXIT_CODE="0"]
